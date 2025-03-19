@@ -19,6 +19,8 @@ io.on("connection", (socket) => {
     socket.on('message', (message) => {
         console.log("Recieved: " + message.message + "[" + message.id + "]");
         messages.push(message);
-        socket.emit("sendMessages", messages);
+        console.log(messages);
+        io.sockets.emit("sendMessages", messages);
+        console.log("sent messages...");
     });
 });

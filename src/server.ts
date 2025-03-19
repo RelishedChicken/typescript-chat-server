@@ -15,9 +15,10 @@ interface SocketData {
 }
 
 interface ChatMessage {
-    readonly id: number;
-    readonly message: string;
-    readonly date: Date;
+  readonly id: number;
+  readonly author: string;
+  readonly message: string;
+  readonly date: Date;
 }
 
 const io = new Server<ClientToServerEvents,ServerToClientEvents,SocketData>(3000 , {
@@ -41,7 +42,9 @@ io.on("connection", (socket) => {
     socket.on('message', (message:ChatMessage) => {
         console.log("Recieved: " + message.message + "["+message.id+"]");
         messages.push(message);
-        socket.emit("sendMessages", messages);
+        console.log(messages);
+        io.sockets.emit("sendMessages", messages);
+        console.log("sent messages...")
     });
 
 });
