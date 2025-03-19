@@ -12,6 +12,7 @@ let messages = [];
 io.on("connection", (socket) => {
     //Handle sending the client all messages currently stored
     socket.on('getAllMessages', () => {
+        console.log("Request for messages");
         socket.emit("sendMessages", messages);
     });
     //Handle recieving a message
