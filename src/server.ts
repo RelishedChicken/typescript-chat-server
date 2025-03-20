@@ -23,7 +23,7 @@ interface ChatMessage {
 
 const io = new Server<ClientToServerEvents,ServerToClientEvents,SocketData>(3000 , {
     cors: {
-        origin: "http://localhost:5173",
+        origin: "https://typescript-chat-6a7e1e67d992.herokuapp.com/",
         methods: ["GET", "POST"]
     }
 });
