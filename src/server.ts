@@ -56,7 +56,6 @@ io.on("connection", (socket) => {
     socket.on('message', (message:ChatMessage) => {
         console.log("Recieved: " + message.message + "["+message.id+"]");
         messages.push(message);
-        console.log(messages);
         io.sockets.emit("sendMessages", messages);
         console.log("sent messages...")
     });
