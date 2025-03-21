@@ -26,9 +26,7 @@ interface ChatMessage {
 const PORT = process.env.PORT || 3000;
 const INDEX = '/index.html';
 const app: Express = express();
-const production  = 'https://typescript-chat-server-2a4af974e68f.herokuapp.com';
-const development = 'http://localhost';
-const url = (process.env.NODE_ENV ? production : development);
+const url = (process.env.NODE_ENV) ? 'https://typescript-chat-server-2a4af974e68f.herokuapp.com' : 'http://localhost';
 const server = app.use((req, res) => res.sendFile(INDEX, {root: __dirname})).listen(PORT, () => console.log(`Listening on ${url}:${PORT}`));
 
 
