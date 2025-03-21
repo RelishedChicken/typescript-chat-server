@@ -26,8 +26,19 @@ interface ChatMessage {
 const PORT = process.env.PORT || 3000;
 const INDEX = '/index.html';
 const app: Express = express();
-const server = app.use((req, res) => res.sendFile(INDEX, {root: __dirname})).listen(PORT, () => console.log(`Listening on ${PORT}`));
-const io = new Server(server);
+const development = 'http://localhost';
+const url = (process.env.NODE_ENV ?? development);
+const server = app.use((req, res) => res.sendFile(INDEX, {root: __dirname})).listen(PORT, () => console.log(`Listening on ${url}:${PORT}`));
+
+
+const io = new Server(server, {
+    cors: {
+        origin: "http://localhost:5173",
+        methods: ["GET", "POST"],
+        allowedHeaders: ["my-custom-header"],
+        credentials: true
+    }
+});
 
 let messages:ChatMessage[] = []; 
 

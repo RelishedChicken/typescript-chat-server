@@ -10,7 +10,8 @@
   "engines": {
     "node": "22.x"
   },
-  "scripts": {
-      "start": "node dist/server.js"
+  "scripts": {    
+      "build": "tsc -b",
+      "start": "tsc -b && node dist/server.js"
   }
 }
