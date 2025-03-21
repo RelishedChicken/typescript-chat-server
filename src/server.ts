@@ -44,6 +44,8 @@ let messages:ChatMessage[] = [];
 //Handle a client connection
 io.on("connection", (socket) => {
 
+    console.log("Got connection!");
+
     //Handle sending the client all messages currently stored
     socket.on('getAllMessages', () => {
         console.log("Request for messages");
