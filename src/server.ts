@@ -21,7 +21,9 @@ interface ChatMessage {
   readonly date: Date;
 }
 
-const io = new Server<ClientToServerEvents,ServerToClientEvents,SocketData>(80 , {
+let port = parseInt(process.env.PORT??'') || 3000;
+console.log("Hosting on "+port);
+const io = new Server<ClientToServerEvents,ServerToClientEvents,SocketData>(port , {
     cors: {
         origin: "https://typescript-chat-6a7e1e67d992.herokuapp.com/",
         methods: ["GET", "POST"]
