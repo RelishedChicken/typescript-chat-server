@@ -1,4 +1,5 @@
 import {Server} from 'socket.io';
+import winston from 'winston';
 
 interface ServerToClientEvents {
     sendMessages: (messages:ChatMessage[]) => void;
@@ -22,7 +23,7 @@ interface ChatMessage {
 }
 
 let port = parseInt(process.env.PORT??'') || 3000;
-console.log("Hosting on "+port);
+winston.log('info', 'Hosted on port '+port);
 const io = new Server<ClientToServerEvents,ServerToClientEvents,SocketData>(port , {
     cors: {
         origin: "https://typescript-chat-6a7e1e67d992.herokuapp.com/",
