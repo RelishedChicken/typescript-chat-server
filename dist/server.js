@@ -21,6 +21,7 @@ const io = new socket_io_1.Server(server, {
 let messages = [];
 //Handle a client connection
 io.on("connection", (socket) => {
+    console.log("Got connection!");
     //Handle sending the client all messages currently stored
     socket.on('getAllMessages', () => {
         console.log("Request for messages");
@@ -30,7 +31,6 @@ io.on("connection", (socket) => {
     socket.on('message', (message) => {
         console.log("Recieved: " + message.message + "[" + message.id + "]");
         messages.push(message);
-        console.log(messages);
         io.sockets.emit("sendMessages", messages);
         console.log("sent messages...");
     });
