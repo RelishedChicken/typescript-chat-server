@@ -1,5 +1,6 @@
-import {Server} from 'socket.io';
+import { Server } from 'socket.io';
 import winston from 'winston';
+import express, { Express, Request, Response } from "express";
 
 interface ServerToClientEvents {
     sendMessages: (messages:ChatMessage[]) => void;
@@ -19,18 +20,16 @@ interface ChatMessage {
   readonly id: number;
   readonly author: string;
   readonly message: string;
-  readonly date: Date;
+  readonly date: Date;  
 }
 
-let port = parseInt(process.env.PORT??'') || 3000;
-winston.log('info', 'Hosted on port '+port);
-const io = new Server<ClientToServerEvents,ServerToClientEvents,SocketData>(port , {
-    cors: {
-        origin: "https://typescript-chat-6a7e1e67d992.herokuapp.com/",
-        methods: ["GET", "POST"]
-    }
-});
-let messages:ChatMessage[] = [];
+const PORT = process.env.PORT || 3000;
+const INDEX = '/index.html';
+const app: Express = express();
+const server = app.use((req, res) => res.sendFile(INDEX, {root: __dirname})).listen(PORT, () => console.log(`Listening on ${PORT}`));
+const io = new Server(server);
+
+let messages:ChatMessage[] = []; 
 
 //Handle a client connection
 io.on("connection", (socket) => {
