@@ -19,6 +19,9 @@ const io = new socket_io_1.Server(server, {
     }
 });
 let messages = [];
+const addMessage = (message) => {
+    messages.push(message);
+};
 //Handle a client connection
 io.on("connection", (socket) => {
     console.log("Got connection!");
@@ -31,6 +34,11 @@ io.on("connection", (socket) => {
     socket.on('message', (message) => {
         console.log("Recieved: " + message.message + "[" + message.id + "]");
         messages.push(message);
+        //only allow 30        
+        while (messages.length > 30) {
+            messages.shift();
+            console.log("trimmed " + message.id);
+        }
         io.sockets.emit("sendMessages", messages);
         console.log("sent messages...");
     });
