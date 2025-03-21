@@ -33,7 +33,7 @@ const server = app.use((req, res) => res.sendFile(INDEX, {root: __dirname})).lis
 
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:5173",
+        origin: "*",
         methods: ["GET", "POST"],
         allowedHeaders: ["my-custom-header"],
         credentials: true
